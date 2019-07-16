@@ -58,7 +58,7 @@ public class WaterControl : MonoBehaviour
 
     void StartFlow()
     {
-        Method method = () =>
+        Method flood = () =>
         {
             height += Time.deltaTime * scale;
         };
@@ -67,7 +67,7 @@ public class WaterControl : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                method = () =>
+                flood = () =>
                 {
 
                 };
@@ -80,7 +80,7 @@ public class WaterControl : MonoBehaviour
                 //SceneManager.LoadScene("Main"); //메인으로 이동
             }
 
-            method();
+            flood();
             int ceilHeight = Mathf.CeilToInt(height);
             water.transform.localScale = new Vector3(1, ceilHeight, 1);
             water.transform.position = new Vector3(water.transform.position.x,
@@ -94,18 +94,13 @@ public class WaterControl : MonoBehaviour
         if(baselineStart <= height && height <= baselineEnd)
         {
             Debug.Log("Success");
-            //스탯 증가
+            CharacterManager.Get_instance().hungry += 30;
         }
         else
         {
             Debug.Log("Fail");
         }
 
-        EndGame();
-    }
-
-    void EndGame()
-    {
-        //SceneManager.LoadScene("Main"); //메인화면으로 이동
+        CharacterManager.EndGame();
     }
 }

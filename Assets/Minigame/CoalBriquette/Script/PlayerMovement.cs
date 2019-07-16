@@ -53,13 +53,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(collider.gameObject.tag == "Start")
         {
-            Debug.Log("Test");
-            EndGame();   
+            CharacterManager.Get_instance().Temperature += 30;
+            CharacterManager.EndGame();
         }
-    }
-
-    void EndGame()
-    {
-        //SceneManager.LoadScene("Main"); //메인화면으로 이동
     }
 }

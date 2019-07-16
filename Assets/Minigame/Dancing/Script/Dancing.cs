@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class Massage : MonoBehaviour
+public class Dancing : MonoBehaviour
 {
-    public RawImage back;
+    public RawImage hand;
     public Image gauge;
     public Text leftTime;
-    public Button shoulder;
     int time;
 
     // Start is called before the first frame update
     void Start()
     {
-        shoulder.onClick.AddListener(Touching);
-
         time = 30;
 
         StartCoroutine(Timer());
@@ -25,17 +21,19 @@ public class Massage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gauge.fillAmount -= 0.1f * Time.deltaTime;
+
+        gauge.fillAmount += Mathf.Abs(Input.GetAxisRaw("Mouse X")) * Time.deltaTime / 100f;
+
         if(time == 0)
         {
-            CharacterManager.Get_instance().tired += 30;
+            CharacterManager.Get_instance().mental += 30;
             CharacterManager.EndGame();
         }
-        else if(gauge.fillAmount < 0f)
+        else if(gauge.fillAmount <= 0f)
         {
             CharacterManager.EndGame();
         }
-
-        gauge.fillAmount -= 0.1f * Time.deltaTime;
     }
 
     IEnumerator Timer()
@@ -46,10 +44,5 @@ public class Massage : MonoBehaviour
             leftTime.text = "남은 시간 : " + time;
             yield return new WaitForSeconds(1);
         }
-    }
-
-    void Touching()
-    {
-        gauge.fillAmount += 0.01f;
     }
 }

@@ -56,11 +56,11 @@ public class SliderControl : MonoBehaviour
             if(score == 100)
             {
                 CharacterManager.Get_instance().houseQuality += 30;
-                EndGame();
+                CharacterManager.EndGame();
             }
             else if(score < 0)
             {
-                EndGame();
+                CharacterManager.EndGame();
             }
 
             InitZone();
@@ -87,11 +87,5 @@ public class SliderControl : MonoBehaviour
     void MovingPin()
     {
         pin.transform.Translate(direction * Mathf.Max(score, 50) / 10 * speed * Time.deltaTime, 0, 0);
-    }
-    
-    void EndGame()
-    {
-        house.texture = newHouse;
-        //SceneManager.LoadScene("Main"); //메인화면으로 이동
     }
 }

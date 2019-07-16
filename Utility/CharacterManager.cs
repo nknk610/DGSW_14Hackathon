@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class CharacterManager : ScriptableObject
@@ -24,5 +25,22 @@ public class CharacterManager : ScriptableObject
         }
 
         return instance;
+    }
+
+    public static  void EndGame()
+    {
+        SceneManager.LoadScene(CharacterManager.Get_instance().CheckStat() ? "Main" : "SadEnding");
+    }
+
+    bool CheckStat()
+    {
+        if(tired == 0 || mental == 0 || houseQuality == 0 || Temperature == 0 || hungry == 100)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }
